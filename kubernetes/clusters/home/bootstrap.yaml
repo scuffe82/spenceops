@@ -5,15 +5,15 @@ metadata:
   name: flux-repositories
   namespace: flux-system
   labels:
-    component.dolos/part-of: bootstrap
+    component.home/part-of: bootstrap
 spec:
   interval: 30m
-  path: "./kubernetes/clusters/dolos/flux-system/repositories"
+  path: "./kubernetes/clusters/home/flux-system/repositories"
   prune: true
   wait: true
   sourceRef:
     kind: GitRepository
-    name: dolos
+    name: home
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -21,18 +21,18 @@ metadata:
   name: flux-cluster-definitions
   namespace: flux-system
   labels:
-    component.dolos/part-of: bootstrap
+    component.home/part-of: bootstrap
 spec:
   dependsOn:
     - name: flux-repositories
     - name: flux-cluster-config
   interval: 30m
-  path: ./kubernetes/clusters/dolos/flux-system/definitions
+  path: ./kubernetes/clusters/home/flux-system/definitions
   prune: true
   wait: false
   sourceRef:
     kind: GitRepository
-    name: dolos
+    name: home
   decryption:
     provider: sops
     secretRef:
@@ -53,7 +53,7 @@ spec:
         kind: Kustomization
         group: kustomize.toolkit.fluxcd.io
         version: v1beta2
-        labelSelector: "component.dolos/part-of=definitions"
+        labelSelector: "component.home/part-of=definitions"
       patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
         kind: Kustomization
@@ -65,7 +65,7 @@ spec:
           wait: true
           sourceRef:
             kind: GitRepository
-            name: dolos
+            name: home
           decryption:
             provider: sops
             secretRef:

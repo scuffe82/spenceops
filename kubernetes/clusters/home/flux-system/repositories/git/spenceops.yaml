@@ -8,7 +8,7 @@ spec:
   interval: 30m
   ref:
     branch: main
-  url: https://github.com/scuffe82/dolos-flux.git
+  url: https://github.com/scuffe82/spenceops.git
   ignore: |
     # exclude all
     /*
